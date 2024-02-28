@@ -70,19 +70,19 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{% url 'base:home-page' %}">Home</a>
-                            <li><a href="#">packages</a></li>
-                            <li><a href="./shop.html">Shop</a></li>
-                            <li><a href="#">models</a></li>
+                            <li><a href="{% url 'base:packages-page' %}">Packages</a></li>
+                            <li><a href="{% url 'base:shop-page' %}">Shop</a></li>
+                            <li><a href="{% url 'base:models-page' %}">Models</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="{% url 'base:product-details-page' %}">Product Details</a></li>
+                                    <li><a href="{% url 'base:shop-cart-page' %}">Shop Cart</a></li>
+                                    <li><a href="{% url 'base:checkout-page' %}">Checkout</a></li>
+                                    <li><a href="{% url 'base:blog-details-page' %}">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="{% url 'base:blog-page' %}">Blog</a></li>
+                            <li><a href="{% url 'base:contact-page' %}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
