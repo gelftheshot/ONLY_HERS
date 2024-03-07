@@ -51,8 +51,8 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="{% url 'userauths:signup-page' %}">Login</a>
+            <a href="{% url 'userauths:signup-page' %}">Register</a>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -75,10 +75,10 @@
                             <li><a href="{% url 'base:models-page' %}">Models</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="{% url 'base:product-details-page' %}">Product Details</a></li>
-                                    <li><a href="{% url 'base:shop-cart-page' %}">Shop Cart</a></li>
+                                    <li><a href="{% url 'base:product_details-page' %}">Product Details</a></li>
+                                    <li><a href="{% url 'base:cart-page' %}">Shop Cart</a></li>
                                     <li><a href="{% url 'base:checkout-page' %}">Checkout</a></li>
-                                    <li><a href="{% url 'base:blog-details-page' %}">Blog Details</a></li>
+                                    <li><a href="{% url 'base:blog_deatils-page' %}">Blog Details</a></li>
                                 </ul>
                             </li>
                             <li><a href="{% url 'base:blog-page' %}">Blog</a></li>
@@ -89,8 +89,12 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'userauths:logout-page' %}">Logout</a>
+                            <a href="#">profile</a>
+                        {% else %}
+                            <a href="{% url 'userauths:login-page' %}">Login/Register</a>
+                        {% endif %}
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>

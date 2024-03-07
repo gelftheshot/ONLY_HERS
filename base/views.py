@@ -4,7 +4,8 @@ from django.http import HttpResponse
 
 def home(request):
     return render(request, 'base/index.html')
-
+def pages():
+    return render(request, 'base/pages.html')
 def about(request):
     return render(request, 'base/about.html')
 
@@ -31,3 +32,10 @@ def wishlist(request):
 
 def cart(request):
     return render(request, 'base/cart.html')
+
+def blog_deatils(request):
+    return render(request, 'base/blog-details.html')
+def checkout(redirect):
+    return rnder(request, 'base/checkout.html')
+def product_details(request):
+    return render(request, 'base/product-details.html')
