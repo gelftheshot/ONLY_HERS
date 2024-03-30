@@ -9,10 +9,9 @@ def user_register(request):
         form = forms.UserRegisterForm(request.POST or None)
         if form.is_valid():
             new_user = form.save()
-            new_user.set_password(form.cleaned_data["password1"])
-            new_user.save()
-            new_user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password1"])
-            
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"Account created for {username}")
+            new_user = authenticate(username=form.cleaned_data["email"], password=form.cleaned_data["password1"])
             login(request, new_user)
             return redirect("base:home-page")
     else:
@@ -26,7 +25,7 @@ def user_login(request):
     if request.method == 'POST':
         form = forms.UserLoginForm(request.POST or None)
         if form.is_valid():
-            user = authenticate(username=form.cleaned_data["username"], password=form.cleaned_data["password"])
+            user = authenticate(username=form.cleaned_data["email"], password=form.cleaned_data["password"])
             if user is not None:
                 login(request, user)
                 return redirect("base:home-page")

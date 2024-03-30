@@ -1,0 +1,31 @@
+{% extends "admin/change_form.html" %}
+
+{% block admin_change_form_document_ready %}
+    {{ block.super }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_Category').change(function() {
+                var url = "{% url 'get_subcategories' %}";
+                var categoryId = $(this).val();
+
+                $.ajax({
+                    url: url,
+                    data: {
+                        'category_id': categoryId
+                    },
+                    success: function(data) {
+                        var subCategorySelect = $('#id_sub_Category');
+                        subCategorySelect.empty();
+
+                        $.each(data, function(index, subCategory) {
+                            subCategorySelect.append(
+                                $('<option></option>').attr('value', subCategory.id).text(subCategory.name)
+                            );
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

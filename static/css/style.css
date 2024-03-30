@@ -1,16 +1,8 @@
-/******************************************************************
-  Template Name: Ashion
-  Description: Ashion ecommerce template
-  Author: Colorib
-  Author URI: https://colorlib.com/
-  Version: 1.0
-  Created: Colorib
-******************************************************************/
 
 /*------------------------------------------------------------------
 [Table of contents]
 
-1.  Template default CSS
+1.   default CSS
 	1.1	Variables
 	1.2	Mixins
 	1.3	Flexbox
@@ -28,9 +20,25 @@
 
 /*----------------------------------------*/
 
-/* Template default CSS
+/* default CSS
 /*----------------------------------------*/
 
+
+/* modified css */
+.item {
+    position: relative;
+}
+
+.image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+/* modified cass end */
 html,
 body {
 	height: 100%;
@@ -333,7 +341,17 @@ ol {
 .header__menu {
 	padding: 30px 0 27px;
 }
-
+.header__menu ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+}
+.full-width-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .header__menu ul li {
 	list-style: none;
 	display: inline-block;
@@ -547,7 +565,7 @@ ol {
 	padding: 150px 0 0;
 }
 
-.banner__slider.owl-carousel .owl-dots {
+.owl-carousel .owl-dots {
 	position: absolute;
 	left: 0;
 	top: 430px;
@@ -1660,6 +1678,14 @@ ol {
 	width: calc(78% - 20px);
 	float: left;
 	margin-left: 20px;
+	
+}
+
+.product__type__slider__content {
+	width: calc(78% - 20px);
+	margin: 0 auto 20px auto; /* top and bottom margins are 0, left and right margins are auto */
+	display: block;
+	clear: both;
 }
 
 .product__details__pic__slider.owl-carousel .owl-nav button {
@@ -1677,11 +1703,61 @@ ol {
 	margin-top: -20px;
 }
 
+.banner__pic__slider {
+	margin-top: 30px;
+	margin-bottom: 30px;
+
+}
+
 .product__details__pic__slider.owl-carousel .owl-nav button.owl-next {
 	left: auto;
 	right: 10px;
 }
 
+.banner__pic__slider.owl-carousel .owl-nav button {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	font-size: 22px;
+	color: #111111;
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	line-height: 44px;
+	text-align: center;
+	margin-top: -20px;
+}
+
+.banner__pic__slider.owl-carousel .owl-nav button.owl-next {
+	left: auto;
+	right: 10px;
+}
+
+.product__big__img {
+	height: 350px;
+}
+
+.product__type__pic__slider.owl-carousel .owl-nav button {
+	position: absolute;
+	left: 10px;
+	top: 40%;
+	font-size: 22px;
+	color: #111111;
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	line-height: 44px;
+	text-align: center;
+	margin-top: -20px;
+	transform: translateY(-50%);
+}
+
+.product__type__pic__slider.owl-carousel .owl-nav button.owl-next {
+	left: auto;
+	right: 10px;
+}
 .product__details__text h3 {
 	color: #111111;
 	font-weight: 600;
@@ -3680,3 +3756,115 @@ ol {
 		font-size: 24px;
 	}
 }
+
+/*# register form edit */
+
+.centered-form-register {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 30%;
+	height: 80%; /* Added to make the div take all available space */
+	margin-top: 100px;
+	margin-left: 400px;
+	margin-bottom: 50px;
+	padding: 0px 0px 0px 0px;
+	border-radius: 10px;
+	border: 1px solid #333;
+}
+
+@media only screen and (max-width: 768px) {
+	.centered-form-register {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.centered-form-register {
+		width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 50px;
+		margin-bottom: 30px;
+	}
+}
+
+.profile-photo img {
+	width: 100px;  /* adjust as needed */
+	height: 100px;  /* adjust as needed */
+	border-radius: 50%;  /* makes the image circular */
+	margin-bottom: 20px;	
+}
+
+.profile-photo button {
+	width: 100px;
+	height: 30px;
+	background-color: #ca1515;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+
+.list-group a {
+	border-radius: 10px;
+	background-color: #faabed;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+	margin-bottom: 3px;
+	font-weight: bolder;
+}
+
+.account-info {
+	text-align: center;
+	padding: 20px;
+	background-color: #f8f9fa;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.account-info h5 {
+	font-size: 24px;
+	color: #343a40;
+	margin-bottom: 20px;
+}
+
+.account-info p {
+	font-size: 18px;
+	color: #6c757d;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table tr {
+	border-bottom: 1px solid #585656;
+}
+
+table td {
+	border-bottom: 1px solid #585656;
+}
+
+table td:last-child {
+	border-right: none;
+}
+
+
+/* .centered-form-register{
+	width: 100%;
+	height: auto;
+	margin-right: 20px;
+}
+
+.centered-form-register  {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 50px;
+	width: 100%;
+	height: 100%; /* Added to make the div take all available space */

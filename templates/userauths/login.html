@@ -1,6 +1,24 @@
-<form action="" method="POST">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <button type="submit">login</button>
-</form>
-<p>Don't have an account? <a href="{% url 'userauths:signup-page' %}">Register</a></p>
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+<body>
+    <div class="centered-form-register">
+        <div>
+        <a href="{% url 'base:home-page' %}"><img src="{% static 'img/logo.png' %}" alt="logo"></a>
+        </div>
+        <div>
+            <form action="" method="POST">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit">login</button>
+            </form>
+        </div
+            <p>Don't have an account? <a href="{% url 'userauths:signup-page' %}">Register</a></p>
+    </div>
+</body>
+</html>
+<!-- END: /home/leon/portofolio/ONLY_HERS/templates/userauths/register.html -->

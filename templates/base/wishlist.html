@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>Your liked products</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row property__gallery"> <!-- here is the product with filter part-->
+            {% for pro in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 product-box" id="product-{{ pro.product.pro_id }}" }}">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{ pro.product.display_image.url }}">
+                    <ul class="product__hover">
+                            <li><a href="{{ pro.product.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="{% url 'base:add_to_cart-page' pro.product.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                            <li><a href="{% url 'base:product_details-page' pro.product.pro_id %}"> <span class="icon_bag_alt"></span></a></li>
+                            <li><a data-pro-id="{{ pro.product.pro_id }}" data-url="{% url 'base:remove_from_wishlist-page' pro.product.pro_id %}"> <span class="icon_close"></span></a></li>
+                    </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="#">{{ pro.product.name}}</a></h6>
+                        <div class="rating">
+                        {% for i in range_1_6 %}
+                            {% if i <= pro.product.rating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star-o"></i>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        <div class="product__price">$ {{ pro.product.old_price }} <span>{{ pro.product.new_price }}</span> </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+           {% comment %} <button id="load-more" data-limit='4' data-total = {{total}} data-page="{{ product.next_page_number }}">Load More</button> {% endcomment %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock page_content %}

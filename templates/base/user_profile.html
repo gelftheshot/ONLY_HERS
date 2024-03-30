@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<script>
+</script>
+    <section class="checkout spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="profile-photo">
+                                <!-- Profile photo goes here -->
+                                {% if user.profile.profile_photo %}
+                                    <img id="profile-photo-img" src="{{ user.profile.profile_photo.url }}" alt="Profile Photo" onclick="document.getElementById('id_profile_photo').click();">
+                                {% else %}
+                                    <img id="profile-photo-img" src="{% static 'img/logo.png' %}" alt="Profile Photo" onclick="document.getElementById('id_profile_photo').click();">
+                                {% endif %}                                <form action="{% url 'base:update_profile-page' %}" method="post" enctype="multipart/form-data">                                    {% csrf_token %}
+                                    <input id="id_profile_photo" type="file" name="profile_photo" style="display: none;" onchange="loadFile(event)">
+                                    <button type="submit">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="list-group">
+                                <a href="#account" class="list-group-item list-group-item-action">Account Info</a>
+                                <a href="#order" class="list-group-item list-group-item-action">Order Info</a>
+                                <a href="#shipping-address" class="list-group-item list-group-item-action">Shipping Address</a>
+                                <!-- Add more links as needed -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div id="account" class="profile-info profile_info">
+                        <h5>Account</h5>
+                        <p>Username: {{ user.username }}</p>
+                        <p>Email: {{ user.email }}</p>
+                        <!-- Display other user attributes as needed -->
+                    </div>
+                    <div id="order" class="profile-info shop__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Products</th>
+                                <th>Total price</th>
+                                <th>Date of order</th>
+                                <th>shipping adress</th>
+                                <th>shipping status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in orders %}
+                        {% if order.total %}
+                          <tr href = "#">
+                            <td class="cart__price">
+                                {% with order.orderitem_set.all as orderitems %}
+                                    {% for item in orderitems %}
+                                        {{ item.product.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                            </td>  
+                            <td class="cart__price" style="text-align: center;">${{ order.total }}</td>                            
+                            <td class="cart__price"> {{ order.created_at }} </td>
+                            <td class="cart__total" style="text-align: right;">{{ order.city }}</td>
+                            <td class="cart__total" style="text-align: right;">{{ order.shipped }}</td>
+                          </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+                    </div>
+                    <div id="shipping-address" class="profile-info">
+                <form action="{% url 'base:update_profile-page' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5><h5>Shipping Address</h5></h5>
+                        <div class="row">
+                            {% for field in profile_form %}
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="checkout__form__input">
+                                        <p>{{ field.label }} <span>*</span></p>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                    <!-- Add more divs as needed -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock page_content %}

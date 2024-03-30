@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4> different packages </h4>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-10">
+                <ul class="filter__controls">
+                    <li class="active" data-filter="*">All</li>
+                    {% for pack  in packages %}
+                    <li data-filter=".{{pack.pack_id}}">{{ pack.name }}</li>                    
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row property__gallery"> <!-- here is the product with filter part-->
+            {% for pack in packages %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mix {{ pack.pack_id }}">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{ pack.image.url }}">
+                    <ul class="product__hover">
+                            <li><a href="{{ pack.image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="{% url "base:package_to_cart-page" pack.pack_id%}"><span class="icon_cart"></span></a></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"> <span class="icon_bag_alt"></span></a></li>                            
+                            
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="{% url 'base:package_deatils-page' pack.pack_id %}">{{ pack.name}}</a></h6>
+                        <div class="rating">
+                        {% for i in range_1_6 %}
+                            {% if i <= pro.rating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star-o"></i>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        <div class="product__price">$ {{ pack.price}} <span>{{ pack.price }}</span> </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock page_content%}

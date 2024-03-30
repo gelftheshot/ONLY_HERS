@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+    <!-- Contact Section Begin -->
+    <section class="contact spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="contact__content">
+                        <div class="contact__address">
+                            <h5>Contact info</h5>
+                            <ul>
+                                <li>
+                                    <h6><i class="fa fa-map-marker"></i> Address</h6>
+                                    <p>ALX Ethiopia |Lideta Hub, 4th Floor|</p>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-phone"></i> Phone</h6>
+                                    <p><span>+251-976980273</span><span>+251-968654020</span></p>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-headphones"></i> Support</h6>
+                                    <p>support.onlyhers@gmail.com</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="contact__form">
+                            <h5>SEND MESSAGE</h5>
+                            <form action="#">
+                                <input type="text" placeholder="Name">
+                                <input type="text" placeholder="Email">
+                                <input type="text" placeholder="Website">
+                                <textarea placeholder="Message"></textarea>
+                                <button type="submit" class="site-btn">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="contact__map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31523.130847436973!2d38.732810007482506!3d9.02801782611591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8553784626a5%3A0x94c194d17a43f4d7!2sALX%20Ethiopia%20%7CLideta%20Hub%2C%204th%20Floor%7C!5e0!3m2!1sam!2set!4v1710832754556!5m2!1sam!2set" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock page_content%}

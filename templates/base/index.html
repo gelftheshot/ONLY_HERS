@@ -1,100 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block page_content %}
-    <!-- Categories Section Begin -->
-    <section class="categories">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item set-bg"
-                    data-setbg="{% static 'img/categories/category-1.jpg' %}">
+
+
+<!-- hot-catagory section Section Begin -->
+<section class="categories">
+    <div class="container-fluid"> <!-- Opened -->
+         <div class="row">
+            <div class="col-lg-6 p-0">
+                <div class="categories__item categories__large__item set-bg" data-setbg="{% static 'img/models.gir.gif' %}">
                     <div class="categories__text">
                         <h1>Women’s fashion</h1>
-                        <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore
-                        edolore magna aliquapendisse ultrices gravida.</p>
+                        <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore edolore magna aliquapendisse ultrices gravida.</p>
                         <a href="#">Shop now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/category-2.jpg' %}">
-                            <div class="categories__text">
-                                <h4>buy her style</h4>
-                                <p>200 styles</p>
-                                <a href="#">shop now</a>
+                    {% for subcat in subcategory %}
+                        {% if subcat.Hot %}
+                            <div class="col-lg-6 col-md-6 col-sm-6 p-0">
+                                <div class="categories__item set-bg" data-setbg="{{ subcat.image.url }}">
+                                    <div class="categories__text">
+                                        <h4> {{ subcat.name }} </h4>
+                                        <p>{{ subcat.product_set.count }} Item{{ subcat.product_set.count|pluralize }}</p>                                        
+                                        <a href="#">shop now</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/category-3.jpg' %}">
-                            <div class="categories__text">
-                                <h4>match your family</h4>
-                                <p>25 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/category-4.jpg' %}">
-                            <div class="categories__text">
-                                <h4>Cosmetics</h4>
-                                <p>159 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="{% static 'img/categories/category-5.jpg' %}">
-                            <div class="categories__text">
-                                <h4>Accessories</h4>
-                                <p>792 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            </div>
+            </div>    
         </div>
-    </div>
+    </div> <!-- Closed -->
 </section>
-<!-- Categories Section End -->
-<!-- Banner Section Begin -->
-<section class="banner set-bg" data-setbg="{% static 'img/banner/banner-1.jpg' %}">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-7 col-lg-8 m-auto">
-                <div class="banner__slider owl-carousel">
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Banner Section End -->
 
+<!-- hot  Categories Section End -->
+<!-- Banner Section Begin -->
+<div class="banner__pic__slider owl-carousel">
+    {% for banner in banner %}
+    <div class="item">
+        <img class="product__big__img" src="{{ banner.image.url }}" alt="">
+        <div class="image-text">
+            <span>The Chloe Collection</span>
+            <h1></h1>
+            <a href="#">Shop now</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 <!-- Product Section Begin -->
+
+
 <section class="product spad">
     <div class="container">
         <div class="row">
@@ -106,1659 +66,131 @@
             <div class="col-lg-10 col-md-10">
                 <ul class="filter__controls">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".cosmoitcs">Cosmoitcs</li>
-                    <li data-filter=".modelsstyle">buy models style</li>
-                    <li data-filter=".tops">tops</li>
-                    <li data-filter=".professionl">professionl cloth</li>
-                    <li data-filter=".packages">different packages</li>
-                    <li data-filter=".sleeptime">sleeptime</li>
-                    <li data-filter=".cookingtime">cookingtime</li>
-                    <li data-filter=".matchingfamily">match your family</li>
-                    <li data-filter=".skincare">skincare</li>
-                    <li data-filter=".haircare">haircare</li>
-                    <li data-filter=".activewear">Activewear</li>
-                    <li data-filter=".perfume">perfume</li>
-                    <li data-filter=".underwear">Underwear</li>
-                    <li data-filter=".jewelry">jewelry</li>
-                    <li data-filter=".bath">bath_items</li>
+                    {% for cat in category %}
+                    <li data-filter=".{{ cat.name }}">{{ cat.name }}</li>                    
+                    {% endfor %}
                 </ul>
             </div>
         </div>
-        <div class="row property__gallery">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+        <div class="row property__gallery"> <!-- here is the product with filter part-->
+            {% for pro in product %}
+            <div class="col-lg-3 col-md-4 col-sm-6 product-box mix {{ pro.Category.name }}">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" style="background-image: url('{% static 'img/product/product-1.jpg' %}')">
-                        <div class="label new">New</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                    <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}">
+                    <ul class="product__hover">
+                            <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                            <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
+                            
                         </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6><a href="#">Buttons tweed blazer</a></h6>
+                        <h6><a href="#">{{ pro.name}}</a></h6>
                         <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix active">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/active-1.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/active-1.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Flowy striped skirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix active">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/active-2.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/active-2.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Flowy striped skirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix active">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/active-3.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/active-3.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Flowy striped skirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix active">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/active-4.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/active-4.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Flowy striped skirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix active">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/active-5.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/active-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Flowy striped skirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-1.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-1.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-2.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-2.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-3.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-3.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-4.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-4.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-5.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-6.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-7.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-8.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix tops">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/top-9.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/top-9.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-1.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/model-1.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-2.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/model-2.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-3.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/model-3.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-4.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/model-4.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-5.jpg' %}">
-                                                <div class="label stockout">out of stock</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-3.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Cotton T-Shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-6.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-4.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Slim striped pocket shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-7.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-8.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-9.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-10.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-11.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-12.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-13.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix modelsstyle">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/model-14.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-5.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-1.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-2.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-3.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-4.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-5.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-6.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-7.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-8.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix perfume">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/perfume-9.jpg' %}">
-                                                <div class="label sale">Sale</div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-6.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Tropical Kimono</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-1.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-2.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-3.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-4.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-5.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-6.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-7.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-8.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-9.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-10.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix jewelry">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/jewelry-11.jpg' %}">
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-7.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Contrasting sunglasses</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 59.0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-2.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-2.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-3.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-4.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-5.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-6.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-7.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix bath">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/bath-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix bath">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/bath-2.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix bath">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/bath-3.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix bath">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/bath-4.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix cookingtime">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/cooking-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix cookingtime">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/cooking-2.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix cookingtime">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/cooking-3.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix cookingtime">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/cooking-4.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix cookingtime">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/cooking-5.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix cookingtime">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/cooking-6.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4 col-sm-6 mix professionl">
-                                        <div class="product__item sale">
-                                            <div class="product__item__pic set-bg" data-setbg="{% static 'img/product/professional-1.jpg' %}">
-                                                <div class="label"></div>
-                                                <ul class="product__hover">
-                                                    <li><a href="{% static 'img/product/product-8.jpg' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__item__text">
-                                                <h6><a href="#">Water resistant backpack</a></h6>
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                                            </div>
-                                        </div>
-                                    </div>                                   
-                                </div>
-                            </div>
-                        </section>
-                        <!-- Product Section End -->
+                        {% for i in range_1_6 %}
+                            {% if i <= pro.rating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star-o"></i>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        <div class="product__price">$ {{ pro.old_price }} <span>{{ pro.new_price }}</span> </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+           {% comment %} <button id="load-more" data-limit='4' data-total = {{total}} data-page="{{ product.next_page_number }}">Load More</button> {% endcomment %}
+        </div>
+    </div>
+</section>
 
-    {% endblock page_content %}
+<!-- tranding section starts -->
+<div class="container">
+<div class="col-lg-4 col-md-4">
+    <div class="section-title">
+        <h4> In stock Products</h4>
+    </div>
+</div>
+</div>
+<div class="product__type__slider__content"> <!-- Opened -->
+    <div class="product__type__pic__slider owl-carousel"> <!-- Opened -->
+        {% for pro in product %}
+        {% if pro.in_stock%}
+        <div class="col-lg-12 col-md-12 col-sm-12 mix {{ pro.Category.name }}"> <!-- Opened -->
+            <div class="product__item"> <!-- Opened -->
+                <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}"> <!-- Opened -->
+                    <ul class="product__hover">
+                        <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                        <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                        <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
+                        <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
+                    </ul>
+                </div> <!-- Closed -->
+                <div class="product__item__text"> <!-- Opened -->
+                    <h6><a href="#">{{ pro.name}}</a></h6>
+                    <div class="rating"> <!-- Opened -->
+                        {% for i in range_1_6 %}
+                            {% if i <= pro.rating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star-o"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div> <!-- Closed -->
+                    <div class="product__price">$ {{ pro.old_price }} <span>{{ pro.new_price }}</span> </div>
+                </div> <!-- Closed -->
+            </div> <!-- Closed -->
+        </div> <!-- Closed -->
+        {% endif %}
+        {% endfor %}
+    </div> <!-- Closed -->
+</div> 
+
+<div class="container">
+<div class="col-lg-4 col-md-4">
+    <div class="section-title">
+        <h4> Hot products </h4>
+    </div>
+</div>
+</div>
+<div class="product__type__slider__content"> <!-- Opened -->
+    <div class="product__type__pic__slider owl-carousel"> <!-- Opened -->
+        {% for pro in product %}
+        {% if pro.Hot%}
+        <div class="col-lg-12 col-md-12 col-sm-12 mix {{ pro.Category.name }}"> <!-- Opened -->
+            <div class="product__item"> <!-- Opened -->
+                <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}"> <!-- Opened -->
+                    <ul class="product__hover">
+                        <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                            <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
+                        <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
+                    </ul>
+                </div> <!-- Closed -->
+                <div class="product__item__text"> <!-- Opened -->
+                    <h6><a href="#">{{ pro.name}}</a></h6>
+                    <div class="rating"> <!-- Opened -->
+                        {% for i in range_1_6 %}
+                            {% if i <= pro.rating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star-o"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div> <!-- Closed -->
+                    <div class="product__price">$ {{ pro.old_price }} <span>{{ pro.new_price }}</span> </div>
+                </div> <!-- Closed -->
+            </div> <!-- Closed -->
+        </div> <!-- Closed -->
+        {% endif %}
+        {% endfor %}
+    </div> <!-- Closed -->
+</div>
+
+<!-- Closed -->
+
+ <!-- tranding section ends -->
+<!-- product section ends -->
+{% endblock page_content %}

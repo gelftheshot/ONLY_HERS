@@ -5,11 +5,10 @@
 <head>
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Ashion Template">
-        <meta name="keywords" content="Ashion, unica, creative, html">
+        <meta name="description" content="ONLY HERS">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Ashion | Template</title>
+        <title>ONLY HERS</title>
     
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -25,6 +24,7 @@
         <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
         <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
 </head>
 <body>
@@ -38,7 +38,6 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
-            <li><span class="icon_search search-switch"></span></li>
             <li><a href="#"><span class="icon_heart_alt"></span>
                 <div class="tip">2</div>
             </a></li>
@@ -47,7 +46,7 @@
             </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="{% url 'base:home-page' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+            <a href="{% url 'base:home-page' %}"><img src="{% static 'img/logo.png' %}" width="20" height="20" alt="logo"></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -63,26 +62,32 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="{% url 'base:home-page' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                        <a href="{% url 'base:home-page' %}"><img src="{% static 'img/logo.png' %}" height="70" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
-                        <ul>
+                            <ul class="search-form">
+                            <form class="full-width-form" method="get" action="{% url 'base:search-page' %}">
+                                <input type="text" name="q" placeholder="Search...">
+                                <button type="submit"><span class="icon_search search-switch"></span></button>
+                            </form>
                             <li class="active"><a href="{% url 'base:home-page' %}">Home</a>
                             <li><a href="{% url 'base:packages-page' %}">Packages</a></li>
                             <li><a href="{% url 'base:shop-page' %}">Shop</a></li>
                             <li><a href="{% url 'base:models-page' %}">Models</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="{% url 'base:product_details-page' %}">Product Details</a></li>
-                                    <li><a href="{% url 'base:cart-page' %}">Shop Cart</a></li>
-                                    <li><a href="{% url 'base:checkout-page' %}">Checkout</a></li>
-                                    <li><a href="{% url 'base:blog_deatils-page' %}">Blog Details</a></li>
-                                </ul>
-                            </li>
                             <li><a href="{% url 'base:blog-page' %}">Blog</a></li>
                             <li><a href="{% url 'base:contact-page' %}">Contact</a></li>
+                            <li><a href="#">More</a>
+                                <ul class="dropdown">
+                                    {%if user.is_authenticated%}
+                                    <li><a href="{% url 'base:cart-page' %}">Shop Cart</a></li>
+                                    {%else%}
+                                    <li><a href="{% url 'userauths:login-page' %}">Shop Cart</a></li>
+                                    {%endif%}
+                                    <li><a href="{% url 'base:product_order-page' %}">Checkout</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -91,25 +96,26 @@
                         <div class="header__right__auth">
                         {% if user.is_authenticated %}
                             <a href="{% url 'userauths:logout-page' %}">Logout</a>
-                            <a href="#">profile</a>
+                            <a href="{% url 'base:profile-page' %}">profile</a>
                         {% else %}
                             <a href="{% url 'userauths:login-page' %}">Login/Register</a>
                         {% endif %}
                         </div>
                         <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
+                        {% if user.is_authenticated %}                         
+                            <li><a href="{% url 'base:wishlist-page'%}"><span class="icon_heart_alt"></span>
+                                <div class="tip" id="wishlist-count">{{ wishlist_count }}</div>
                             </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
+                            <li><a href="{% url 'base:cart-page' %}"><span class="icon_cart"></span>
+                                <div class="tip" id="cart-count">{{ all_cart_count }}</div> 
                             </a></li>
+                        {% endif %}
                         </ul>
                     </div>
-                </div>
-            </div>
+                </div>  
             <div class="canvas__open">
                 <i class="fa fa-bars"></i>
+            </div>
             </div>
         </div>
     </header>
@@ -130,11 +136,8 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         cilisis.</p>
                         <div class="footer__payment">
-                            <a href="#"><img src="{% static 'img/payment/payment-1.png' %}" alt=""></a>
-                            <a href="#"><img src="{% static 'img/payment/payment-2.png' %}" alt=""></a>
-                            <a href="#"><img src="{% static 'img/payment/payment-3.png' %}" alt=""></a>
-                            <a href="#"><img src="{% static 'img/payment/payment-4.png' %}" alt=""></a>
-                            <a href="#"><img src="{% static 'img/payment/payment-5.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'img/payment-4.png' %}" alt=""></a>
+                            <a href="#"><img src="{% static 'img/payment-2.png' %}" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -142,10 +145,10 @@
                     <div class="footer__widget">
                         <h6>Quick links</h6>
                         <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blogs</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            {% comment %} <li><a href="#">About</a></li> {% endcomment %}
+                            <li><a href={% url 'base:blog-page'%}>Blogs</a></li>
+                            <li><a href="{% url "base:contact-page" %}">Contact</a></li>
+                            {% comment %} <li><a href="#">FAQ</a></li> {% endcomment %}
                         </ul>
                     </div>
                 </div>
@@ -153,10 +156,10 @@
                     <div class="footer__widget">
                         <h6>Account</h6>
                         <ul>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Orders Tracking</a></li>
-                            <li><a href="#">Checkout</a></li>
-                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="{% url "base:profile-page" %}">My Account</a></li>
+                            <li><a href="{% url "base:profile-page" %}">Orders Tracking</a></li>
+                            <li><a href="{% url "base:checkout-page" %}">Checkout</a></li>
+                            <li><a href="{% url "base:wishlist-page" %}">Wishlist</a></li>
                         </ul>
                     </div>
                 </div>
@@ -177,16 +180,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    <div class="footer__copyright__text">
-                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-                    </div>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </div>
-            </div>
-        </div>
     </footer>
     <!-- Footer Section End -->
 
