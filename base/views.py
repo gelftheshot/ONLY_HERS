@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from base.models import Cart, Shipments, Order, Review, OrderItem, Product, Category, ProductImage,Tag, SubCategory,CartProduct, Packages, Blog,Banner,Wishlist,WishlistProduct
-from django.contrib.auth.models import User
+from base.models import (
+    Cart, Shipments, Order, 
+    Review, OrderItem, Product, 
+    Category, ProductImage, Tag, 
+    SubCategory, CartProduct, Packages, 
+    Blog, Banner, Wishlist, WishlistProduct, 
+    SuperModel
+)
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -16,6 +22,7 @@ from django.views import View
 from django.db.models import Sum
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 
@@ -44,7 +51,6 @@ def home(request):
         'total': total,
         'banner': banner,
         'wishlist_count': wishlist_count,
-        'wishlist': wishlist,
     }
     return render(request, 'base/index.html', context)
 
@@ -214,10 +220,14 @@ def profile(request):
     return render(request, 'base/user_profile.html', context)
 
 
-def add_to_cart(request, pro_id):
 
+def add_to_cart(request, pro_id):
     if not request.user.is_authenticated:
-        return redirect('userauths:login-page')
+        return JsonResponse({
+            'redirect': True,
+            'redirect_url': reverse('userauths:login-page')
+        })
+
     product = get_object_or_404(Product, pro_id=pro_id)
 
     if product.new_price == 0:
@@ -234,9 +244,12 @@ def add_to_cart(request, pro_id):
     wishlist_count = Wishlist.objects.get(user=request.user).wishlistproduct_set.count()
     return JsonResponse({'cart_count': cart_count, 'wishlist_count': wishlist_count})
 
-
-@login_required(login_url='userauths:login-page')
 def add_to_wishlist(request, pro_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({
+            'redirect': True,
+            'redirect_url': reverse('userauths:login-page')
+        })
 
     product = get_object_or_404(Product, pro_id=pro_id)
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
@@ -261,6 +274,7 @@ def package_to_cart(request, pack_id):
             cart_product.quantity += 1
             cart_product.save()
 
+@login_required(login_url='userauths:login-page')
 def product_order(request):
     cart = Cart.objects.get(user=request.user)
     cart_products = CartProduct.objects.filter(cart=cart)
@@ -373,3 +387,19 @@ def adjust_cart(request, pro_id, opp):
                 cart_product.delete()
                 deleted = True
     return JsonResponse({'quantity': cart_product.quantity})
+
+
+def supermodel(request):
+    models = SuperModel.objects.all()
+
+    context = {
+        'models': models
+    }
+    return render(request, 'base/supermodels.html', context)
+
+def supermodel_details(request, id):
+    model = SuperModel.objects.get(id=id)
+    context = {
+        'model': model
+    }
+    return render(request, 'base/models_detail.html', context)

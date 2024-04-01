@@ -70,11 +70,10 @@
                                     <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                                     <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}"><span class="icon_cart"></span></a></li>
                                     <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li> 
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">{{ pro.name}}</a></h6>
+                                    <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
                                     <div class="rating">
                                     {% for i in range_1_6 %}
                                         {% if i <= pro.rating %}

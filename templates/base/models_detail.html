@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__pic">
+                    <div class="product__details__slider__content">
+                        <div class="product__details__pic__slider owl-carousel">
+                            <img data-hash="product-1" src="{{ model.profile.profile_photo.url }}" alt="" style="width: 80%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 models-description">
+                <div class="product__details__text">
+                    <h3>{{ model.profile.first_name }} {{ model.profile.last_name }}<span></span></h3>
+                    <div> {{ model.profile.address }} {{ model.profile.city }}</div>
+                    <div>  {{ model.height }}feet {{ model.weight }}kg</div>
+                    <div>  {{ model.hair_type}} {{ model.skin_type }}</div>
+                    <div> {{ model.color }} </div>
+                    <div class="footer__social">                   
+                        <a href={{ model.instagram }}><i class="fa fa-instagram"></i></a>
+                        <a href={{ model.snapchat }}<i class="fa fa-snapchat"></i></a>
+                        <a href={{ model.tiktok }}><i class="fa fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row model-product">
+            <div class="col-lg-12">
+                <div class="related__title">
+                    <h5> Products form {{ model.profile.first_name }}</h5>
+                </div>
+            </div>
+            {% for pro in all_products %}
+            {% if pro.infulancer == model.user %}
+            <div class="col-lg-3 col-md-4 col-sm-6 product-box">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}">
+                        <ul class="product__hover">
+                            <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}"><span class="icon_cart"></span></a></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="#">{{ pro.name}}</a></h6>
+                        <div class="rating">
+                        {% for i in range_1_6 %}
+                            {% if i <= pro.rating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star-o"></i>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        <div class="product__price">$ {{ pro.old_price }} <span>{{ pro.new_price }}</span> </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock page_content %}

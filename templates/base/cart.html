@@ -36,7 +36,7 @@
                               </div>
                               <td class="cart__price">${{ pro.product.new_price }}</td>
                                     <td class="cart__quantity">
-                           z       <div class="pro-qty">
+                                  <div class="pro-qty">
                                     <a class="dec qtybtn" href="{% url 'base:adjust_cart-page' pro.product.pro_id 'subtract' %}">-</a>
                                     <input type="text" value="{{ pro.quantity }}" readonly>
                                     <a class="inc qtybtn" href="{% url 'base:adjust_cart-page' pro.product.pro_id 'add' %}">+</a>

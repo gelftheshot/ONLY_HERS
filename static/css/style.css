@@ -345,7 +345,7 @@ ol {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 20px;
+	gap: 10px;
 }
 .full-width-form {
     width: 100%;
@@ -3851,6 +3851,11 @@ table td {
 
 table td:last-child {
 	border-right: none;
+}
+
+.model-product {
+	margin-top: 50px;
+
 }
 
 

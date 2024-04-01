@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+<section class="product spad">
+    <div class="container">
+        <div class="row property__gallery">
+        {% for model in models %}
+            <div class="col-lg-4 col-md-6 col-sm-6 product-box">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{ model.profile.profile_photo.url }}">
+                    <ul class="product__hover">                            
+                    </ul>
+                    </div>
+                    <div class="product__item__text">
+                    <a href="{% url 'base:model_details-page' model.id %}" class="product__price"> {{model.profile.first_name}}  {{ model.age}}  {{ model.weight}}kg {{ model.height }}m</a>                    
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+           {% comment %} <button id="load-more" data-limit='4' data-total = {{total}} data-page="{{ product.next_page_number }}">Load More</button> {% endcomment %}
+        </div>
+    </div>
+</section>
+{% endblock page_content %}

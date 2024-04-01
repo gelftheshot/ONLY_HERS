@@ -1,5 +1,11 @@
 from django.contrib import admin
-from base.models import Cart, Wishlist, Shipments, Order, Review, OrderItem, Product, Category, ProductImage,Tag, SubCategory,CartProduct,Packages,Blog,Banner,WishlistProduct
+from base.models import (
+    Cart, Shipments, Order, 
+    Review, OrderItem, Product, 
+    Category, ProductImage, Tag, 
+    SubCategory, CartProduct, Packages, 
+    Blog, Banner, Wishlist, WishlistProduct, 
+    SuperModel)
 from django.utils.html import format_html
 
 # Register your models here.
@@ -95,6 +101,10 @@ class BannerAdmin(admin.ModelAdmin):
     list_display = ['image', 'titile']
     class Meta:
         model = Banner
+class SuperModelAdmin(admin.ModelAdmin):
+    list_display = ['user', 'profile', 'instagram', 'tiktok']
+    class Meta:
+        model = SuperModel
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage)
@@ -112,3 +122,4 @@ admin.site.register(Blog, BlogAdmin)
 admin.site.register(Wishlist, WishlistAdmin)
 admin.site.register(Banner, BannerAdmin)
 admin.site.register(WishlistProduct, WishlistProductAdmin)
+admin.site.register(SuperModel, SuperModelAdmin)

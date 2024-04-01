@@ -360,8 +360,12 @@ $(document).ready(function() {
             url: url,
             method: 'get',
             success: function(response) {
-                $('#cart-count').text(response.cart_count);
-                // Handle any other response data here
+                if (response.redirect) {
+                    window.location.href = response.redirect_url;
+                } else {
+                    $('#cart-count').text(response.cart_count);
+                    // Handle any other response data here
+                }
             },
             error: function(error) {
                 console.log(error);
@@ -371,22 +375,27 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-        $('.add-to-wishlist').click(function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            $.ajax({
-                url: url,
-                method: 'get',
-                success: function(response) {
+    $('.add-to-wishlist').click(function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            url: url,
+            method: 'get',
+            success: function(response) {
+                if (response.redirect) {
+                    // The response indicates that the user should be redirected.
+                    window.location.href = response.redirect_url;
+                } else {
                     $('#wishlist-count').text(response.wishlist_count);
                     // Handle any other response data here
-                },
-                error: function(error) {
-                    console.log(error);
                 }
-            });
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
     });
+});
 
 $(document).ready(function() {
     $('.icon_close').click(function(e) {

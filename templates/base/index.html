@@ -11,9 +11,9 @@
             <div class="col-lg-6 p-0">
                 <div class="categories__item categories__large__item set-bg" data-setbg="{% static 'img/models.gir.gif' %}">
                     <div class="categories__text">
-                        <h1>Women’s fashion</h1>
-                        <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore edolore magna aliquapendisse ultrices gravida.</p>
-                        <a href="#">Shop now</a>
+                        <h1>Different models style</h1>
+                        <p>Discover models who share your height, weight, and skin color. Find what suits you best. Shop with confidence.</p>
+                        <a href="{% url "base:supermodel-page" %}">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -80,13 +80,11 @@
                     <ul class="product__hover">
                             <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
-                            <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
-                            
+                            <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>                            
                         </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6><a href="#">{{ pro.name}}</a></h6>
+                        <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
                         <div class="rating">
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}
@@ -125,11 +123,10 @@
                         <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                         <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
                         <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
-                        <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
                     </ul>
                 </div> <!-- Closed -->
                 <div class="product__item__text"> <!-- Opened -->
-                    <h6><a href="#">{{ pro.name}}</a></h6>
+                    <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
                     <div class="rating"> <!-- Opened -->
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}
@@ -166,11 +163,10 @@
                         <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
                             <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
-                        <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
                     </ul>
                 </div> <!-- Closed -->
                 <div class="product__item__text"> <!-- Opened -->
-                    <h6><a href="#">{{ pro.name}}</a></h6>
+                    <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
                     <div class="rating"> <!-- Opened -->
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}

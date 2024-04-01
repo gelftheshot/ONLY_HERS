@@ -20,12 +20,11 @@
                     <ul class="product__hover">
                             <li><a href="{{ pro.product.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="{% url 'base:add_to_cart-page' pro.product.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
-                            <li><a href="{% url 'base:product_details-page' pro.product.pro_id %}"> <span class="icon_bag_alt"></span></a></li>
                             <li><a data-pro-id="{{ pro.product.pro_id }}" data-url="{% url 'base:remove_from_wishlist-page' pro.product.pro_id %}"> <span class="icon_close"></span></a></li>
                     </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6><a href="#">{{ pro.product.name}}</a></h6>
+                        <h6><a href="{% url 'base:product_details-page' pro.product.pro_id %}">{{ pro.product.name}}</a></h6>
                         <div class="rating">
                         {% for i in range_1_6 %}
                             {% if i <= pro.product.rating %}

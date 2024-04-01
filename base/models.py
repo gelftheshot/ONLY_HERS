@@ -3,7 +3,7 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.safestring import mark_safe
 import os
 from django.conf import settings
-from userauths.models import User
+from userauths.models import User, Profile
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -17,6 +17,36 @@ Ratting = (
     (3, '★★★☆☆'),
     (4, '★★★★☆'),
     (5, '★★★★★'),
+)
+
+color = (
+    ('Very_light', 'Very light or pale'),
+    ('Light', 'Light'),
+    ('Medium', 'Medium'),
+    ('Olive', 'Olive'),
+    ('Tan', 'Tan'),
+    ('Brown', 'Brown'),
+    ('Dark', 'Dark'),
+    ('Very_dark', 'Very dark or black'),
+)
+
+hair = (
+    ('Straight', 'Straight hair'),
+    ('Wavy', 'Wavy hair'),
+    ('Curly', 'Curly hair'),
+    ('Kinky', 'Kinky hair'),
+    ('Coarse', 'Coarse hair'),
+    ('Fine', 'Fine hair'),
+    ('Thick', 'Thick hair'),
+    ('Thin', 'Thin hair'),
+    ('Frizzy', 'Frizzy hair'),
+)
+
+skin = (
+    ('Dry', 'Dry skin'),
+    ('Oily', 'Oily skin'),
+    ('Normal', 'Normal skin'),
+    ('Combination', 'Combination skin'),
 )
 
 def get_product_upload_path(instance, filename):
@@ -183,3 +213,19 @@ class Banner(models.Model):
     image = models.ImageField(null=True)
 class Payment(models.Model):
     pass
+
+class SuperModel(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    age = models.IntegerField()
+    height = models.IntegerField()
+    weight = models.IntegerField()
+    color = models.CharField(max_length=50, choices=color)
+    hair_type = models.CharField(max_length=50, choices=hair)
+    skin_type = models.CharField(max_length=50, choices=skin)
+    instagram = models.CharField(max_length=100)
+    tiktok = models.CharField(max_length=100)
+    snapchat = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.user.username
