@@ -1,0 +1,10 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% block content %}
+    <h2>Add Package</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Package</button>
+    </form>
+{% endblock %}

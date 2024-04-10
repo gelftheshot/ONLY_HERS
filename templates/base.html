@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load my_custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
         <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/profile.css' %}" type="text/css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
 </head>
@@ -67,17 +68,17 @@
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
-                            <ul class="search-form">
-                            <form class="full-width-form" method="get" action="{% url 'base:search-page' %}">
-                                <input type="text" name="q" placeholder="Search...">
-                                <button type="submit"><span class="icon_search search-switch"></span></button>
-                            </form>
-                            <li class="active"><a href="{% url 'base:home-page' %}">Home</a>
-                            <li><a href="{% url 'base:packages-page' %}">Packages</a></li>
-                            <li><a href="{% url 'base:shop-page' %}">Shop</a></li>
-                            <li><a href="{% url 'base:supermodel-page' %}">Models</a></li>
-                            <li><a href="{% url 'base:blog-page' %}">Blog</a></li>
-                            <li><a href="{% url 'base:contact-page' %}">Contact</a></li>
+                        <form class="full-width-form" method="get" action="{% url 'base:search-page' %}">
+                            <input type="text" name="q" placeholder="Search...">
+                            <button type="submit"><span class="icon_search search-switch"></span></button>
+                        </form>
+                        <ul>
+                            <li class="{% if request.resolver_match.url_name == 'home-page' %}active{% endif %}"><a href="{% url 'base:home-page' %}">Home</a></li>
+                            <li class="{% if request.resolver_match.url_name == 'packages-page' %}active{% endif %}"><a href="{% url 'base:packages-page' %}">Packages</a></li>
+                            <li class="{% if request.resolver_match.url_name == 'shop-page' %}active{% endif %}"><a href="{% url 'base:shop-page' %}">Shop</a></li>
+                            <li class="{% if request.resolver_match.url_name == 'supermodel-page' %}active{% endif %}"><a href="{% url 'base:supermodel-page' %}">Models</a></li>
+                            <li class="{% if request.resolver_match.url_name == 'blog-page' %}active{% endif %}"><a href="{% url 'base:blog-page' %}">Blog</a></li>
+                            <li class="{% if request.resolver_match.url_name == 'contact-page' %}active{% endif %}"><a href="{% url 'base:contact-page' %}">Contact</a></li>
                             <li><a href="#">More</a>
                                 <ul class="dropdown">
                                     {%if user.is_authenticated%}
@@ -94,6 +95,10 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
+                        {% if user.is_authenticated and user|is_supermodel %}
+                            <a href="{% url 'dashboard:dashboard-page' %}">Dashboard</a>
+                        {% endif %}
+
                         {% if user.is_authenticated %}
                             <a href="{% url 'userauths:logout-page' %}">Logout</a>
                             <a href="{% url 'base:profile-page' %}">profile</a>
@@ -113,12 +118,10 @@
                         </ul>
                     </div>
                 </div>  
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
     <!-- Header Section end -->
 
 
@@ -157,7 +160,7 @@
                         <ul>
                             <li><a href="{% url "base:profile-page" %}">My Account</a></li>
                             <li><a href="{% url "base:profile-page" %}">Orders Tracking</a></li>
-                            <li><a href="{% url "base:checkout-page" %}">Checkout</a></li>
+                            <li><a href="{% url "base:product_order-page" %}">Checkout</a></li>
                             <li><a href="{% url "base:wishlist-page" %}">Wishlist</a></li>
                         </ul>
                     </div>

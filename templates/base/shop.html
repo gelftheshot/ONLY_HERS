@@ -66,10 +66,10 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}">
-                                <ul class="product__hover">
-                                    <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}"><span class="icon_cart"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <ul class="product__hover">
+                                        <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <li class="{% if pro in cart_products %}in-cart{% endif %}"><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                                        <li class="{% if pro in wishlist_products %}in-wishlist{% endif %}"><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>                            
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -90,10 +90,16 @@
                     {% endfor %}           
                         <div class="col-lg-12 text-center">
                             <div class="pagination__option">
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                                {% for page_num in products.paginator.page_range %}
+                                    {% if page_num == products.number %}
+                                        <a href="?page={{ page_num }}" class="active">{{ page_num }}</a>
+                                    {% else %}
+                                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if products.has_next %}
+                                    <a href="?page={{ products.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

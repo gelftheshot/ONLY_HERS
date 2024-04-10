@@ -60,7 +60,7 @@ class WishlistProductAdmin(admin.ModelAdmin):
     class Meta:
         model = WishlistProduct
 class ShipmentsAdmin(admin.ModelAdmin):
-    list_display = ['user', 'address', 'city', 'phone', 'email',]
+    list_display = ['user', 'city', 'phone',]
     class Meta:
         model = Shipments
 
@@ -102,7 +102,7 @@ class BannerAdmin(admin.ModelAdmin):
     class Meta:
         model = Banner
 class SuperModelAdmin(admin.ModelAdmin):
-    list_display = ['user', 'profile', 'instagram', 'tiktok']
+    list_display = ['user', 'instagram', 'tiktok']
     class Meta:
         model = SuperModel
 

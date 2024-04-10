@@ -1,55 +1,129 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
+<body>
 
+  <div class="profile">
 
-<section class="product-details spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="product__details__pic">
-                    <div class="product__details__slider__content">
-                        <div class="product__details__pic__slider owl-carousel">
-                            <img data-hash="product-1" src="{{ model.profile.profile_photo.url }}" alt="" style="width: 80%;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 models-description">
-                <div class="product__details__text">
-                    <h3>{{ model.profile.first_name }} {{ model.profile.last_name }}<span></span></h3>
-                    <div> {{ model.profile.address }} {{ model.profile.city }}</div>
-                    <div>  {{ model.height }}feet {{ model.weight }}kg</div>
-                    <div>  {{ model.hair_type}} {{ model.skin_type }}</div>
-                    <div> {{ model.color }} </div>
-                    <div class="footer__social">                   
-                        <a href={{ model.instagram }}><i class="fa fa-instagram"></i></a>
-                        <a href={{ model.snapchat }}<i class="fa fa-snapchat"></i></a>
-                        <a href={{ model.tiktok }}><i class="fa fa-facebook"></i></a>
-                    </div>
-                </div>
-            </div>
+    {% comment %} <div class="profile__header">
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- logo -->
+        <div class="profile__logo">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png" alt="Instagram logo">
         </div>
+        <!-- Search bar -->
+        <div class="profile__searchBar">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <!-- Settings -->
+        <div class="profile__settings">
+          <button>
+            <svg aria-label="Home" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+              <path d="M9.005 16.545a2.997 2.997 0 012.997-2.997h0A2.997 2.997 0 0115 16.545V22h7V11.543L12 2 2 11.543V22h7.005z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </button>
+          <button>
+            <svg aria-label="Messenger" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+              <path d="M12.003 2.001a9.705 9.705 0 110 19.4 10.876 10.876 0 01-2.895-.384.798.798 0 00-.533.04l-1.984.876a.801.801 0 01-1.123-.708l-.054-1.78a.806.806 0 00-.27-.569 9.49 9.49 0 01-3.14-7.175 9.65 9.65 0 0110-9.7z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="1.739"></path>
+              <path d="M17.79 10.132a.659.659 0 00-.962-.873l-2.556 2.05a.63.63 0 01-.758.002L11.06 9.47a1.576 1.576 0 00-2.277.42l-2.567 3.98a.659.659 0 00.961.875l2.556-2.049a.63.63 0 01.759-.002l2.452 1.84a1.576 1.576 0 002.278-.42z" fill-rule="evenodd"></path>
+            </svg>
+          </button>
+          <button>
+            <svg aria-label="New post" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+              <path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
+              <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
+            </svg>
+          </button>
+          <button>
+            <svg aria-label="Find people" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+              <polygon fill="none" points="13.941 13.953 7.581 16.424 10.06 10.056 16.42 7.585 13.941 13.953" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon>
+              <polygon fill-rule="evenodd" points="10.06 10.056 13.949 13.945 7.581 16.424 10.06 10.056"></polygon>
+              <circle cx="12.001" cy="12.005" fill="none" r="10.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
+            </svg>
+          </button>
+          <button>
+            <svg aria-label="Activity Feed" class="_ab6-" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+              <path d="M16.792 3.904A4.989 4.989 0 0121.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 014.708-5.218 4.21 4.21 0 013.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 013.679-1.938m0-2a6.04 6.04 0 00-4.797 2.127 6.052 6.052 0 00-4.787-2.127A6.985 6.985 0 00.5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 003.518 3.018 2 2 0 002.174 0 45.263 45.263 0 003.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 00-6.708-7.218z"></path>
+            </svg>
+          </button>
+          <button>
+            <img src="https://www.pngarts.com/files/5/User-Avatar-PNG-Image.png" alt="User image">
+          </button>
+
+        </div>
+      </div>
+    </div> {% endcomment %}
+    
+    <div class="profile__profile">
+      <div class="container d-flex align-items-center">
+
+        <div class="profile__profile__logo">
+          <img src="{{ model.user.profile.profile_photo.url }}" alt="Profile Image">
+        </div>
+        <div class="profile__profile__details">
+
+          <div class="profile__profile__details__userName">
+            <h4>{{model.user.profile.first_name}}</h4>
+
+          </div>
+          <div class="profile__profile__details__follower my-3">
+            <span><b>135</b> product</span>
+            <button>
+              <b>123</b> packages
+            </button>
+            <button>
+              <b>123</b> blogs
+            </button>
+          </div>
+          <div class="profile__profile__details__social">
+                <a href={{ model.instagram }}><i class="fa fa-instagram"></i></a>
+                <a href={{ model.snapchat }}><i class="fa fa-snapchat"></i></a>
+                <a href={{ model.tiktok }}><i class="fa fa-facebook"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="profile__section">
+      <div class="container">
+
+        <div class="profile__section__tab">
+          <button class="tablinks" onclick="openSection(event, 'products')" id="defaultOpen">
+            <svg aria-label="" class="_ab6-" color="#262626" fill="#262626" height="18" role="img" viewBox="0 0 24 24" width="18">
+						<path d="M17.638,6.181h-3.844C13.581,4.273,11.963,2.786,10,2.786c-1.962,0-3.581,1.487-3.793,3.395H2.362c-0.233,0-0.424,0.191-0.424,0.424v10.184c0,0.232,0.191,0.424,0.424,0.424h15.276c0.234,0,0.425-0.191,0.425-0.424V6.605C18.062,6.372,17.872,6.181,17.638,6.181 M13.395,9.151c0.234,0,0.425,0.191,0.425,0.424S13.629,10,13.395,10c-0.232,0-0.424-0.191-0.424-0.424S13.162,9.151,13.395,9.151 M10,3.635c1.493,0,2.729,1.109,2.936,2.546H7.064C7.271,4.744,8.506,3.635,10,3.635 M6.605,9.151c0.233,0,0.424,0.191,0.424,0.424S6.838,10,6.605,10c-0.233,0-0.424-0.191-0.424-0.424S6.372,9.151,6.605,9.151 M17.214,16.365H2.786V7.029h3.395v1.347C5.687,8.552,5.332,9.021,5.332,9.575c0,0.703,0.571,1.273,1.273,1.273c0.702,0,1.273-0.57,1.273-1.273c0-0.554-0.354-1.023-0.849-1.199V7.029h5.941v1.347c-0.495,0.176-0.849,0.645-0.849,1.199c0,0.703,0.57,1.273,1.272,1.273s1.273-0.57,1.273-1.273c0-0.554-0.354-1.023-0.849-1.199V7.029h3.395V16.365z"></path>
+						</svg>
+            products</button>
+          <button class="tablinks" onclick="openSection(event, 'packages')">
+            <svg aria-label="" class="_ab6-" color="#8e8e8e" fill="#8e8e8e" height="12" role="img" viewBox="0 0 24 24" width="12">
+                  <span class="icon_gift_alt"></span>          
+            </svg>
+            packages</button>
+          <button class="tablinks" onclick="openSection(event, 'Saved')">
+            <svg aria-label="" class="_ab6-" color="#8e8e8e" fill="#8e8e8e" height="12" role="img" viewBox="0 0 24 24" width="12">
+              <span class="social_blogger"></span>
+            </svg>
+            Blogs</button>
+        </div>
+
+        <div id="products" class="profile__section__tab__tabcontent">
+
+          <div class="profile__section__tab__tabcontent__container">
         <div class="row model-product">
-            <div class="col-lg-12">
-                <div class="related__title">
-                    <h5> Products form {{ model.profile.first_name }}</h5>
-                </div>
-            </div>
             {% for pro in all_products %}
             {% if pro.infulancer == model.user %}
             <div class="col-lg-3 col-md-4 col-sm-6 product-box">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}">
-                        <ul class="product__hover">
-                            <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}"><span class="icon_cart"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="{% url 'base:product_details-page' pro.pro_id %}"> <span class="icon_bag_alt"></span></a></li>                            
-                        </ul>
+                    <ul class="product__hover">
+                        <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                        <li class="{% if pro in cart_products %}in-cart{% endif %}"><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                        <li class="{% if pro in wishlist_products %}in-wishlist{% endif %}"><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>                            
+                    </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6><a href="#">{{ pro.name}}</a></h6>
+                        <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
                         <div class="rating">
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}
@@ -66,6 +140,20 @@
             {% endif %}
             {% endfor %}
         </div>
+          </div>
+
+        </div>
+
+        <div id="packages" class="profile__section__tab__tabcontent">
+
+        </div>
+
+        <div id="Saved" class="profile__section__tab__tabcontent"></div>
+        <div id="Tagged" class="profile__section__tab__tabcontent">
+        </div>
+      </div>
     </div>
-</section>
+  </div>
+</body>
+
 {% endblock page_content %}

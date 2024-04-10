@@ -5,6 +5,8 @@
     /*------------------
         Preloader
     --------------------*/
+
+
     $(window).on('load', function () {
         $(".loader").fadeOut();
         $("#preloder").delay(200).fadeOut("slow");
@@ -353,7 +355,7 @@ $('.qtybtn').on('click', function(e) {
 });
 
 $(document).ready(function() {
-    $('.add-to-cart').click(function(e) {
+    $('body').on('click', '.add-to-cart', function(e) {
         e.preventDefault();
         var url = $(this).attr('href');
         $.ajax({
@@ -361,21 +363,20 @@ $(document).ready(function() {
             method: 'get',
             success: function(response) {
                 if (response.redirect) {
-                    window.location.href = response.redirect_url;
+                    window.location = response.redirect_url;
                 } else {
                     $('#cart-count').text(response.cart_count);
-                    // Handle any other response data here
                 }
+                // Add the in-cart class to the parent li
+                $(e.target).closest('li').addClass("in-cart");
             },
             error: function(error) {
                 console.log(error);
             }
         });
     });
-});
 
-$(document).ready(function() {
-    $('.add-to-wishlist').click(function(e) {
+    $('body').on('click', '.add-to-wishlist', function(e) {
         e.preventDefault();
         var url = $(this).attr('href');
         $.ajax({
@@ -383,12 +384,12 @@ $(document).ready(function() {
             method: 'get',
             success: function(response) {
                 if (response.redirect) {
-                    // The response indicates that the user should be redirected.
-                    window.location.href = response.redirect_url;
+                    window.location = response.redirect_url;
                 } else {
                     $('#wishlist-count').text(response.wishlist_count);
-                    // Handle any other response data here
                 }
+                // Add the in-wishlist class to the parent li
+                $(e.target).closest('li').addClass("in-wishlist");
             },
             error: function(error) {
                 console.log(error);
@@ -436,6 +437,8 @@ $(document).ready(function() {
     });
 });
 
+
+
 })(jQuery);
 
 function loadFile(event) {
@@ -447,3 +450,22 @@ function loadFile(event) {
     reader.readAsDataURL(event.target.files[0]);
 };
 
+function openSection(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName(
+      "profile__section__tab__tabcontent"
+    );
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  

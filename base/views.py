@@ -23,7 +23,7 @@ from django.db.models import Sum
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -55,7 +55,6 @@ def home(request):
     return render(request, 'base/index.html', context)
 
 
-
 # def load_more_data(request):
 #     try:
 #         offset = int(request.GET.get('offset', 0))
@@ -76,6 +75,7 @@ def about(request):
 def contact(request):
     return render(request, 'base/contact.html')
 
+
 def shop(request, category=None, subcategory=None,):
     if category and subcategory:
         products = Product.objects.filter(Category__name=category, sub_Category__name=subcategory)
@@ -86,6 +86,12 @@ def shop(request, category=None, subcategory=None,):
         products = Product.objects.all()
         category = Category.objects.all()
         subcategory = SubCategory.objects.all()
+
+    paginator = Paginator(products, 6)
+
+    page_number = request.GET.get('page')
+
+    products = paginator.get_page(page_number)
 
     context = {
         'products': products,
@@ -105,14 +111,20 @@ def packages(request):
     }
     return render(request, 'base/packages.html', context)
 
+
 def blog(request):
+    page_number = request.GET.get('page', 1)
+    blogs = Blog.objects.all()
+    paginator = Paginator(blogs, 1)
 
-    blog = Blog.objects.all()
+    try:
+        blogs = paginator.page(page_number)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+    except EmptyPage:
+        blogs = paginator.page(paginator.num_pages)
 
-    context = {
-        'blogs': blog,
-    }
-    return render(request, 'base/blog.html', context)
+    return render(request, 'base/blog.html', {'blogs': blogs})
 
 def login(request):
     return render(request, 'base/login.html')
@@ -123,18 +135,14 @@ def cart(request):
         quantity = request.POST.get('quantity')
 
         try:
-            # Get the cart and the product
-            cart = Cart.objects.get(user=request.user)  # Replace with your actual cart
+            cart = Cart.objects.get(user=request.user)
             product = Product.objects.get(id=product_id)
 
-            # Get the CartProduct instance for this cart and product
             cart_product = CartProduct.objects.get(cart=cart, product=product)
 
-            # Update the quantity
             cart_product.quantity = int(quantity)
             cart_product.save()
 
-            # Recalculate the total
             new_total = cart_product.quantity * product.price
 
             return JsonResponse({'new_total': new_total})
@@ -397,8 +405,9 @@ def supermodel(request):
     }
     return render(request, 'base/supermodels.html', context)
 
-def supermodel_details(request, id):
-    model = SuperModel.objects.get(id=id)
+
+def model_by_name(request, user_name):
+    model = SuperModel.objects.get(user_name = user_name)
     context = {
         'model': model
     }

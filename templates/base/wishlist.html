@@ -14,13 +14,13 @@
         </div>
         <div class="row property__gallery"> <!-- here is the product with filter part-->
             {% for pro in products %}
-            <div class="col-lg-3 col-md-4 col-sm-6 product-box" id="product-{{ pro.product.pro_id }}" }}">
+            <div class="col-lg-3 col-md-4 col-sm-6 product-box" id="product-{{ pro.product.pro_id }}" }}>
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="{{ pro.product.display_image.url }}">
                     <ul class="product__hover">
-                            <li><a href="{{ pro.product.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="{% url 'base:add_to_cart-page' pro.product.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
-                            <li><a data-pro-id="{{ pro.product.pro_id }}" data-url="{% url 'base:remove_from_wishlist-page' pro.product.pro_id %}"> <span class="icon_close"></span></a></li>
+                        <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                        <li class="{% if pro in cart_products %}in-cart{% endif %}"><a href="{% url 'base:add_to_cart-page' pro.product.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
+                        <li><a data-pro-id="{{ pro.product.pro_id }}" data-url="{% url 'base:remove_from_wishlist-page' pro.product.pro_id %}"> <span class="icon_close"></span></a></li>
                     </ul>
                     </div>
                     <div class="product__item__text">

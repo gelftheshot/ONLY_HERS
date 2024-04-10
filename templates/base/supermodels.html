@@ -8,12 +8,12 @@
         {% for model in models %}
             <div class="col-lg-4 col-md-6 col-sm-6 product-box">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="{{ model.profile.profile_photo.url }}">
+                    <div class="product__item__pic set-bg" data-setbg="{{ model.user.profile.profile_photo.url }}">
                     <ul class="product__hover">                            
                     </ul>
                     </div>
                     <div class="product__item__text">
-                    <a href="{% url 'base:model_details-page' model.id %}" class="product__price"> {{model.profile.first_name}}  {{ model.age}}  {{ model.weight}}kg {{ model.height }}m</a>                    
+                    <a href="{% url 'base:model_by_name-page' model.user_name %}" class="product__price"> {{model.user.profile.first_name}}  hair and face product</a>                    
                     </div>
                 </div>
             </div>

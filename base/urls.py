@@ -38,7 +38,7 @@ urlpatterns = [
     path('adjust_cart/<str:pro_id>/<str:opp>', views.adjust_cart, name = 'adjust_cart-page'),
     path('remove_from_wishlist/<str:pro_id>/', views.remove_from_wishlist, name = "remove_from_wishlist-page"),
     path('supermodel/', views.supermodel, name='supermodel-page'),
-    path('supermodel_details/<str:id>/', views.supermodel_details, name='model_details-page'),
+    path('<str:user_name>/', views.model_by_name, name='model_by_name-page'),
     # path('load_more_data/', views.load_more_data, name='load_more_data-page'),
     ]
 

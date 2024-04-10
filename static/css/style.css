@@ -25,6 +25,7 @@
 
 
 /* modified css */
+
 .item {
     position: relative;
 }
@@ -1163,6 +1164,7 @@ ol {
 	margin-bottom: 35px;
 }
 
+
 .product__item:hover .product__hover li {
 	opacity: 1;
 	top: 0;
@@ -1180,7 +1182,10 @@ ol {
 	height: 360px;
 	position: relative;
 	overflow: hidden;
+	border: 1px solid rgb(209, 197, 197);
+	margin-right : 2px;
 }
+
 
 .product__item__pic .label {
 	font-size: 12px;
@@ -1253,6 +1258,7 @@ ol {
 	background: #ca1515;
 }
 
+
 .product__hover li:hover a span {
 	color: #ffffff;
 	-webkit-transform: rotate(360deg);
@@ -1273,6 +1279,14 @@ ol {
 	-webkit-transition: all, 0.5s;
 	-o-transition: all, 0.5s;
 	transition: all, 0.5s;
+}
+
+.product__hover li.in-cart a {
+	background: #ca1515;
+}
+
+.product__hover li.in-wishlist a {
+	background: #ca1515;
 }
 
 .product__hover li a span {
@@ -1734,9 +1748,9 @@ ol {
 	right: 10px;
 }
 
-.product__big__img {
+/* .product__big__img {
 	height: 350px;
-}
+} */
 
 .product__type__pic__slider.owl-carousel .owl-nav button {
 	position: absolute;
@@ -3857,6 +3871,9 @@ table td:last-child {
 	margin-top: 50px;
 
 }
+
+
+
 
 
 /* .centered-form-register{

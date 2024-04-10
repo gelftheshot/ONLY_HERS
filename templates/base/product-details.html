@@ -32,7 +32,7 @@
                 </div>
             <div class="col-lg-6">
                 <div class="product__details__text">
-                    <h3>{{ product.name }} <span>Brand: product.tag</span></h3>
+                    <h3>{{ product.name }} <span>Brand: {{ product.tag }}</span></h3>
                         <div class="rating">
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}

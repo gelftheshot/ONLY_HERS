@@ -24,7 +24,7 @@ class UserLoginForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name','last_name','address', 'country', 'city', 'phone', 'email',]
+        fields = ['first_name','last_name', 'city', 'phone',]
 
 class ProfilePhotoForm(forms.ModelForm):
     class Meta:

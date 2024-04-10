@@ -49,6 +49,7 @@ skin = (
     ('Combination', 'Combination skin'),
 )
 
+
 def get_product_upload_path(instance, filename):
     return os.path.join('category', str(instance.Category), f"{instance.name}__{instance.pro_id}" + filename)
 def get_product_details_upload_path(instance, filename):
@@ -87,16 +88,16 @@ class Product(models.Model):
     Category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True)
     sub_Category = models.ForeignKey('SubCategory', on_delete=models.SET_NULL, blank=True, null=True,)
     display_image = models.ImageField(upload_to=get_product_upload_path)
-    deatail_image = models.ForeignKey('ProductImage', on_delete=models.SET_NULL, null=True)
+    deatail_image = models.OneToOneField('ProductImage', on_delete=models.SET_NULL, blank=True, null=True, related_name='detail_product')
     new_price = models.DecimalField(max_digits=10, decimal_places=2)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2)
+    old_price = models.DecimalField(max_digits=10, decimal_places=2, null = True, blank = True)
     description = models.TextField()
-    percentage_discount = models.DecimalField(max_digits=5, decimal_places=2)
+    percentage_discount = models.DecimalField(max_digits=5, decimal_places=2, null = True, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tag = models.ManyToManyField('Tag', blank=True)
-    label = models.CharField(max_length=30)
-    in_stock = models.BooleanField(default=True)
+    label = models.CharField(max_length=30, null = True, blank = True)
+    in_stock = models.BooleanField(default=False)
     Tranding = models.BooleanField(default=False)
     Hot = models.BooleanField(default=False)
     rating = models.ForeignKey('Review', on_delete=models.SET_NULL, blank=True, null=True, related_name='rated_products')
@@ -104,6 +105,7 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, null=True)
     image1 = models.ImageField(upload_to=get_product_details_upload_path, null=True)
     image2 = models.ImageField(upload_to=get_product_details_upload_path, null=True)
     image3 = models.ImageField(upload_to=get_product_details_upload_path, null=True)
@@ -155,11 +157,10 @@ class WishlistProduct(models.Model):
 
 class Shipments(models.Model):
     user = models.ForeignKey('userauths.User', on_delete=models.CASCADE)
+    phone = models.CharField(max_length=30)
     order = models.ForeignKey('Order', on_delete=models.CASCADE, null=True)
     city = models.CharField(max_length=30)
-    address = models.TextField()
-    phone = models.CharField(max_length=30)
-    email = models.EmailField()
+    street = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Review(models.Model):
@@ -187,6 +188,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
+
 class Packages(models.Model):
     pack_id = ShortUUIDField(unique=True, length=15, max_length=20, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', primary_key=True, editable=False, prefix='pack')
     name = models.CharField(max_length=30, unique=True)
@@ -211,21 +213,16 @@ class Banner(models.Model):
     titile = models.CharField(max_length=30, null = True)
     package = models.ForeignKey(Packages, on_delete=models.CASCADE)
     image = models.ImageField(null=True)
+
 class Payment(models.Model):
     pass
 
 class SuperModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    age = models.IntegerField()
-    height = models.IntegerField()
-    weight = models.IntegerField()
-    color = models.CharField(max_length=50, choices=color)
-    hair_type = models.CharField(max_length=50, choices=hair)
-    skin_type = models.CharField(max_length=50, choices=skin)
+    user_name = models.CharField(max_length=12, primary_key = True)
     instagram = models.CharField(max_length=100)
     tiktok = models.CharField(max_length=100)
-    snapchat = models.CharField(max_length=100)
+    youtube = models.CharField(max_length=100, null = True)
 
     def __str__(self):
         return self.user.username
