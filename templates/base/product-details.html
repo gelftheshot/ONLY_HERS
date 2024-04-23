@@ -46,13 +46,17 @@
                     <div class="product__details__price">$  {{product.new_price}} <span>$ {{product.old_price}} </span></div>
                     <p>{{product.description}}</p>
                     <div class="product__details__button">
-                        <div class="quantity">
-                            <span>Quantity:</span>
-                            <div class="pro-qty">
-                                <input type="text" value="1">
+                        <form method="POST" action="{% url 'base:add_to_cart_with_qt-page' %}">
+                            {% csrf_token %}
+                            <div class="quantity">
+                                <span>Quantity:</span>
+                                <div class="pro-qty">
+                                    <input type="text" name="quantity" value="1">
+                                </div>
                             </div>
-                        </div>
-                        <a href="{% url 'base:add_to_cart-page' product.pro_id %}" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                            <input type="hidden" name="product_id" value="{{ product.pro_id }}">
+                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
+                        </form>
                         <ul>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>

@@ -45,9 +45,9 @@
     <div class="item">
         <img class="product__big__img" src="{{ banner.image.url }}" alt="">
         <div class="image-text">
-            <span>The Chloe Collection</span>
+            <span></span>
             <h1></h1>
-            <a href="#">Shop now</a>
+            <a href="#"></a>
         </div>
     </div>
     {% endfor %}
@@ -80,7 +80,11 @@
                     <ul class="product__hover">
                         <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                         <li class="{% if pro in cart_products %}in-cart{% endif %}"><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
-                        <li class="{% if pro in wishlist_products %}in-wishlist{% endif %}"><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>                            
+                        <li class="{% if pro in wishlist_products %}in-wishlist{% endif %}">
+                            <a href="{% if pro in wishlist_products %}{% url 'base:remove_from_wishlist-page' pro.pro_id %}{% else %}{% url 'base:add_to_wishlist-page' pro.pro_id %}{% endif %}" class="add-to-wishlist">
+                                <span class="icon_heart_alt"></span>
+                            </a>
+                        </li>                   
                     </ul>
                     </div>
                     <div class="product__item__text">

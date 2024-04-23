@@ -11,13 +11,6 @@ SHIPPING_STATUS_CHOICES = [
         ('SHIPPED', 'Shipped'),
         ('NOT_SHIPPED', 'Not Shipped'),
     ]
-Ratting = (
-    (1, '★☆☆☆☆'),
-    (2, '★★☆☆☆'),
-    (3, '★★★☆☆'),
-    (4, '★★★★☆'),
-    (5, '★★★★★'),
-)
 
 color = (
     ('Very_light', 'Very light or pale'),
@@ -166,7 +159,7 @@ class Shipments(models.Model):
 class Review(models.Model):
     user = models.ForeignKey('userauths.User', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(choices=Ratting, default=5)
+    rating = models.PositiveIntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     comment = models.TextField()

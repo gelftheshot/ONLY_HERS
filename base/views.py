@@ -228,8 +228,29 @@ def profile(request):
     return render(request, 'base/user_profile.html', context)
 
 
+def add_to_cart_with_qt(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('userauths:login-page'))
 
-def add_to_cart(request, pro_id):
+    product_id = request.POST.get('product_id')
+    quantity = request.POST.get('quantity')
+    product = get_object_or_404(Product, pro_id=product_id)
+
+    if product.new_price == 0:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    cart_product, created = CartProduct.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        cart_product.quantity += int(quantity)
+        cart_product.save()
+    else:
+        cart_product.quantity = int(quantity)
+        cart_product.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+def add_to_cart(request, pro_id, quantity=1):
     if not request.user.is_authenticated:
         return JsonResponse({
             'redirect': True,
