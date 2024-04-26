@@ -26,7 +26,11 @@ from base.forms import ProductForm, ProductImageForm, PackagesForm, BlogForm
 
 
 def dashboard(request):
-    return render(request, 'dashboard/dashboard.html',)
+    orders = Order.objects.all()
+    context = {
+        "orders" : orders
+    }
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 def add_product(request):
