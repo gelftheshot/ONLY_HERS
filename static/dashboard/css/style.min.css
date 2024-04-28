@@ -11300,6 +11300,7 @@ ul.list-style-none li a:hover {
 
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link {
     background: #3e5569;
+
     opacity: 1
 }
 
