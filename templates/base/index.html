@@ -6,7 +6,7 @@
 
 <!-- hot-catagory section Section Begin -->
 <section class="categories">
-    <div class="container-fluid"> <!-- Opened -->
+    <div class="container-fluid">
          <div class="row">
             <div class="col-lg-6 p-0">
                 <div class="categories__item categories__large__item set-bg" data-setbg="{% static 'img/models.gir.gif' %}">
@@ -35,10 +35,11 @@
                 </div>
             </div>    
         </div>
-    </div> <!-- Closed -->
+    </div> 
 </section>
-
 <!-- hot  Categories Section End -->
+
+
 <!-- Banner Section Begin -->
 <div class="banner__pic__slider owl-carousel">
     {% for banner in banner %}
@@ -52,9 +53,9 @@
     </div>
     {% endfor %}
 </div>
+<!-- Banner Section End -->
+
 <!-- Product Section Begin -->
-
-
 <section class="product spad">
     <div class="container">
         <div class="row">
@@ -103,10 +104,11 @@
                 </div>
             </div>
             {% endfor %}
-           {% comment %} <button id="load-more" data-limit='4' data-total = {{total}} data-page="{{ product.next_page_number }}">Load More</button> {% endcomment %}
         </div>
     </div>
 </section>
+<!-- Product Section End -->
+
 
 <!-- tranding section starts -->
 <div class="container">
@@ -116,22 +118,22 @@
     </div>
 </div>
 </div>
-<div class="product__type__slider__content"> <!-- Opened -->
-    <div class="product__type__pic__slider owl-carousel"> <!-- Opened -->
+<div class="product__type__slider__content">
+    <div class="product__type__pic__slider owl-carousel">
         {% for pro in product %}
         {% if pro.in_stock%}
-        <div class="col-lg-12 col-md-12 col-sm-12 mix {{ pro.Category.name }}"> <!-- Opened -->
-            <div class="product__item"> <!-- Opened -->
-                <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}"> <!-- Opened -->
+        <div class="col-lg-12 col-md-12 col-sm-12 mix {{ pro.Category.name }}">
+            <div class="product__item">
+                <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}">
                     <ul class="product__hover">
                         <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                         <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
                         <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
                     </ul>
-                </div> <!-- Closed -->
-                <div class="product__item__text"> <!-- Opened -->
+                </div> 
+                <div class="product__item__text">
                     <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
-                    <div class="rating"> <!-- Opened -->
+                    <div class="rating">
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}
                                 <i class="fa fa-star"></i>
@@ -139,14 +141,14 @@
                                 <i class="fa fa-star-o"></i>
                             {% endif %}
                         {% endfor %}
-                    </div> <!-- Closed -->
+                    </div> 
                     <div class="product__price">$ {{ pro.old_price }} <span>{{ pro.new_price }}</span> </div>
-                </div> <!-- Closed -->
-            </div> <!-- Closed -->
-        </div> <!-- Closed -->
+                </div> 
+            </div> 
+        </div> 
         {% endif %}
         {% endfor %}
-    </div> <!-- Closed -->
+    </div> 
 </div> 
 
 <div class="container">
@@ -156,22 +158,22 @@
     </div>
 </div>
 </div>
-<div class="product__type__slider__content"> <!-- Opened -->
-    <div class="product__type__pic__slider owl-carousel"> <!-- Opened -->
+<div class="product__type__slider__content">
+    <div class="product__type__pic__slider owl-carousel">
         {% for pro in product %}
         {% if pro.Hot%}
-        <div class="col-lg-12 col-md-12 col-sm-12 mix {{ pro.Category.name }}"> <!-- Opened -->
-            <div class="product__item"> <!-- Opened -->
-                <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}"> <!-- Opened -->
+        <div class="col-lg-12 col-md-12 col-sm-12 mix {{ pro.Category.name }}">
+            <div class="product__item">
+                <div class="product__item__pic set-bg" data-setbg="{{ pro.display_image.url }}">
                     <ul class="product__hover">
                         <li><a href="{{ pro.display_image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="{% url 'base:add_to_cart-page' pro.pro_id %}" class="add-to-cart"><span class="icon_cart"></span></a></li>
                             <li><a href="{% url 'base:add_to_wishlist-page' pro.pro_id %}" class="add-to-wishlist"><span class="icon_heart_alt"></span></a></li>
                     </ul>
-                </div> <!-- Closed -->
-                <div class="product__item__text"> <!-- Opened -->
+                </div> 
+                <div class="product__item__text">
                     <h6><a href="{% url 'base:product_details-page' pro.pro_id %}">{{ pro.name}}</a></h6>
-                    <div class="rating"> <!-- Opened -->
+                    <div class="rating">
                         {% for i in range_1_6 %}
                             {% if i <= pro.rating %}
                                 <i class="fa fa-star"></i>
@@ -179,17 +181,17 @@
                                 <i class="fa fa-star-o"></i>
                             {% endif %}
                         {% endfor %}
-                    </div> <!-- Closed -->
+                    </div> 
                     <div class="product__price">$ {{ pro.old_price }} <span>{{ pro.new_price }}</span> </div>
-                </div> <!-- Closed -->
-            </div> <!-- Closed -->
-        </div> <!-- Closed -->
+                </div> 
+            </div> 
+        </div> 
         {% endif %}
         {% endfor %}
-    </div> <!-- Closed -->
+    </div> 
 </div>
 
-<!-- Closed -->
+
 
  <!-- tranding section ends -->
 <!-- product section ends -->
