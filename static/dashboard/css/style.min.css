@@ -2915,8 +2915,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-cyan {
     color: #fff;
-    background-color: #27a9e3;
-    border-color: #27a9e3
+    background-color: #3e5569;
+    border-color: #3e5569;
 }
 
 .btn-cyan:hover {
@@ -10310,7 +10310,7 @@ html[dir=ltr] body .p-l-0 {
 }
 
 #main-wrapper .left-sidebar[data-sidebarbg=skin5] .create-btn, #main-wrapper .left-sidebar[data-sidebarbg=skin5] ul .create-btn {
-    background: #27a9e3
+    background: #3e5569;
 }
 aside.left-sidebar {
     position: fixed;
@@ -11299,7 +11299,7 @@ ul.list-style-none li a:hover {
 }
 
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link {
-    background: #27a9e3;
+    background: #3e5569;
     opacity: 1
 }
 
