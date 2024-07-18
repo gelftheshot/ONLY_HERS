@@ -67,7 +67,7 @@ def home(request):
 #         return JsonResponse({'error': str(e)})
 
 
-def pages():
+def pages(request):
     return render(request, 'base/pages.html')
 def about(request):
     return render(request, 'base/about.html')
