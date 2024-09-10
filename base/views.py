@@ -24,6 +24,10 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+import requests
+from django.conf import settings
+from django.urls import reverse
+import uuid
 
 
 def home(request):
@@ -53,7 +57,6 @@ def home(request):
         'wishlist_count': wishlist_count,
     }
     return render(request, 'base/index.html', context)
-
 
 # def load_more_data(request):
 #     try:
@@ -433,3 +436,51 @@ def model_by_name(request, user_name):
         'model': model
     }
     return render(request, 'base/models_detail.html', context)
+
+def initiate_payment(request):
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        
+        # Prepare the payload for Chapa API
+        payload = {
+            "amount": amount,
+            "currency": "ETB",
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "tx_ref": "tx-myecommerce-" + str(uuid.uuid4()),
+            "callback_url": request.build_absolute_uri(reverse('base:payment_callback')),
+            "return_url": request.build_absolute_uri(reverse('base:payment_success')),
+            "customization[title]": "Only Hers Payment",
+            "customization[description]": "Payment for your order"
+        }
+
+        # Make a request to Chapa API to initialize transaction
+        headers = {
+            "Authorization": f"Bearer {settings.CHAPA_SECRET_KEY}",
+            "Content-Type": "application/json"
+        }
+        response = requests.post("https://api.chapa.co/v1/transaction/initialize", json=payload, headers=headers)
+        
+        if response.status_code == 200:
+            # If successful, redirect to Chapa checkout URL
+            checkout_url = response.json()['data']['checkout_url']
+            return redirect(checkout_url)
+        else:
+            # Handle error
+            messages.error(request, 'Payment initialization failed. Please try again.')
+            return redirect('base:product_order-page')
+
+    return redirect('order')  # Redirect back to order page if not a POST request
+
+def payment_callback(request):
+    # Handle callback from Chapa
+    # Verify the transaction and update order status
+    return render(request, 'payment_callback.html')
+
+def payment_success(request):
+    # Handle successful payment
+    return render(request, 'payment_success.html')

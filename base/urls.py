@@ -8,6 +8,9 @@ urlpatterns = [
     path('', views.home, name='home-page'),
     path('about/', views.about, name='about-page'),
     path('contact/', views.contact, name='contact-page'),
+    path('initiate-payment/', views.initiate_payment, name='initiate_payment'),
+    path('payment-callback/', views.payment_callback, name='payment_callback'),
+    path('payment-success/', views.payment_success, name='payment_success'),
     path('shop/', views.shop, name='shop-page'),
     path('shop/<str:category>/', views.shop, name='shop_by_category'),
     path('shop/<str:category>/<str:subcategory>/', views.shop, name='shop_by_subcategory'),
@@ -41,7 +44,8 @@ urlpatterns = [
     path('<str:user_name>/', views.model_by_name, name='model_by_name-page'),
     path("add_to_cart_with_qt", views.add_to_cart_with_qt, name='add_to_cart_with_qt-page'),
     # path('load_more_data/', views.load_more_data, name='load_more_data-page'),
-    ]
+
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

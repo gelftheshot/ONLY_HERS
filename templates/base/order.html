@@ -2,9 +2,18 @@
 {% load static %}
 {% block page_content %}
 {% load my_custom_tags %}
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
     <section class="checkout spad">
         <div class="container">
-            <form action="{% url 'base:place_order-page' %}" method="post" class="checkout__form">
+            <form action="{% url 'base:initiate_payment' %}" method="post" class="checkout__form">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-8">
@@ -19,18 +28,10 @@
                                 </div>
                             {% endfor %}
                             <div class="col-lg-12">
-                                <div class="checkout__form__checkbox">
-                                    <label for="note">
-                                        Note about your order, e.g, special note for delivery
-                                        <input type="checkbox" id="note">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
                                 <div class="checkout__form__input">
                                     <p>Order notes <span>*</span></p>
-                                    <input type="text" placeholder="Note about your order, e.g, special note for delivery">
+                                    <input type="text" name="order_notes" placeholder="Note about your order, e.g, special note for delivery">
                                 </div>
-                                <button type="submit" class="site-btn">Place order</button>
                             </div>
                         </div>
                     </div>
@@ -53,19 +54,8 @@
                                     <li>Total <span>$ {{total}} </span></li>
                                 </ul>
                             </div>
-                            <div class="checkout__order__widget">
-                                <h6> payment method </h6>
-                                <label for="check-payment">
-                                    chapa
-                                    <input type="checkbox" id="check-payment">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label for="paypal">
-                                    PayPal
-                                    <input type="checkbox" id="paypal">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                            <input type="hidden" name="amount" value="{{total}}">
+                            <button type="submit" class="site-btn">Proceed to Payment</button>
                         </div>
                     </div>
                 </div>
